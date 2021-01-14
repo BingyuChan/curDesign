@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function showhidediv(id) {
+            var sbtitle = document.getElementById(id);
+            if(sbtitle) {
+                if(sbtitle.style.display == 'block'|| sbtitle.style.display == '') {
+                    sbtitle.style.display = 'none';
+                } else {
+                    sbtitle.style.display = 'block';
+                }
+            }
+        }
+
+        function showhide(){
+            showhidediv("aaaa");
+            showhidediv("bbbb");
+        }
+    </script>
+</head>
+<body>
+<input type="button" onclick="showhide();" value="点击切换状态"/>
+<h1 id="aaaa" >所以那些可能都不是真的</h1>
+<h1 id="bbbb" style="display: none;">你才不是一个没有故事的女同学</h1>
+</body>
+
+</html>

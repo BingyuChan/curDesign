@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>我的收藏</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link href="iTunesArtwork@2x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/core.css}" href="../static/css/core.css">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/icon.css}" href="../static/css/icon.css">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/home.css}" href="../static/css/home.css">
+
+
+</head>
+<body>
+
+<!-- head YDC begin -->
+<header class="ydc-header">
+	<div class="ydc-entered">
+		<div class="ydc-header-content ydc-flex">
+			<div class="ydc-column">
+				<a href="/index/getIndex" class="ydc-column-ydc-logo">
+					知识库管理系统
+				</a>
+			</div>
+			<div class="ydc-column">
+				<div class="ydc-column-user">
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- head YDC end -->
+
+<!-- content YDC begin -->
+<section>
+	<div class="ydc-content-slide ydc-body">
+		<div class="ydc-flex">
+			<!-- left begin -->
+			<div class="ydc-column ydc-column-2">
+				<div class="ydc-menu">
+					<ul>
+						<li class="ydc-menu-item">
+							<a href="/index/getIndex"  ><i class="ydc-icon ydc-icon-home fl"></i>首页</a>
+						</li>
+						<li class="ydc-menu-item">
+							<a href="/index/getRelease"><i class="ydc-icon ydc-icon-find fl"></i>发布</a>
+						</li>
+						<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-file fl"></i>分类
+								</span>
+							<ul>
+								<li>
+									<a href="">内容管理</a>
+								</li>
+								<li>
+									<a href="">内容同步</a>
+								</li>
+								<li>
+									<a href="">素材中心</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-set fl"></i>个人中心
+								</span>
+							<ul>
+								<li>
+									<a th:href="'getCollection?username='+${username}" >我的收藏</a>
+									<a th:href="'getDocs?username='+${username}" >我的文档</a>
+								</li>
+
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- left end -->
+			<!-- right begin -->
+			<div class="ydc-column ydc-column-8">
+				<div class="ydc-entered-box">
+					<div class="ydc-content-right">
+
+
+
+
+						<!-- gongGao begin -->
+						<div class="ydc-loading-box">
+							<div class="ydc-tabPanel">
+								<div>
+									<ul>
+										<li class="hit">我的收藏</li>
+
+									</ul>
+
+								</div>
+								<div class="ydc-panes">
+									<div class="ydc-pane" style="display:block;">
+										<ol class="ydc-pane-list" th:each="myColloction : ${docDtoCollection}">
+											<li >
+												<a th:text="${myColloction.name}"></a>
+											</li>
+										</ol>
+										<div class="ydc-pagination">
+											<ol>
+												<li class="ydc-previous-item">
+													<button class="ydc-previous-item-btn-medium ydc-disabled">
+														<span>上一页</span>
+													</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium cur">1</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium">2</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium">3</button>
+												</li>
+												<li class="ydc-previous-item">
+													<button class="ydc-previous-item-btn-medium">
+														<span>下一页</span>
+													</button>
+												</li>
+												<li class="ydc-item-quick">
+													第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+													<button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+														<span>跳转</span>
+													</button>
+												</li>
+											</ol>
+										</div>
+									</div>
+									<div class="ydc-pane">
+
+										<div class="ydc-pagination">
+											<ol>
+												<li class="ydc-previous-item">
+													<button class="ydc-previous-item-btn-medium ydc-disabled">
+														<span>上一页</span>
+													</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium cur">1</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium">2</button>
+												</li>
+												<li>
+													<button class="ydc-previous-item-btn-medium">3</button>
+												</li>
+												<li class="ydc-previous-item">
+													<button class="ydc-previous-item-btn-medium">
+														<span>下一页</span>
+													</button>
+												</li>
+												<li class="ydc-item-quick">
+													第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+													<button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+														<span>跳转</span>
+													</button>
+												</li>
+											</ol>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- gongGao End -->
+					</div>
+				</div>
+			</div>
+			<!-- right end -->
+		</div>
+	</div>
+
+	<div class="ydc-footer">
+
+	</div>
+</section>
+<!-- content YDC end -->
+
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript">
+	var slideIndex = 0;
+	showSlides();
+
+	function showSlides() {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex> slides.length) {slideIndex = 1}
+		slides[slideIndex-1].style.display = "block";
+		setTimeout(showSlides, 3000); // 滚动时间
+	}
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$('.ydc-tabPanel ul li').click(function(){
+			$(this).addClass('hit').siblings().removeClass('hit');
+			$('.ydc-panes>div:eq('+$(this).index()+')').show().siblings().hide();
+		})
+	})
+</script>
+
+</body>
+</html>

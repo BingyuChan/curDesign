@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+
+	<title>首页</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link href="iTunesArtwork@2x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/core.css}" href="../static/css/core.css">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/icon.css}" href="../static/css/icon.css">
+	<link type="text/css" rel="stylesheet" th:src="@{/css/home.css}" href="../static/css/home.css">
+
+</head>
+<body>
+
+<!-- head YDC begin -->
+<header class="ydc-header">
+	<div class="ydc-entered">
+		<div class="ydc-header-content ydc-flex">
+			<div class="ydc-column">
+				<a href="index.html" class="ydc-column-ydc-logo">
+					知识库管理系统
+				</a>
+			</div>
+			<div class="ydc-column">
+				<div class="ydc-column-user">
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- head YDC end -->
+
+<!-- content YDC begin -->
+<!-- right end -->
+<section>
+
+	<div class="ydc-content-slide ydc-body">
+		<!-- right -->
+		<div style="float:right" class="ydc-loading-box">
+			<div class="ydc-tabPanel">
+				<div>
+					<ul>
+						<li class="hit">热度排行</li>
+					</ul>
+				</div>
+				<!--										点赞排行			-->
+				<div class="ydc-panes">
+					<div class="ydc-pane" style="display:block;">
+						<ol class="ydc-pane-list"  th:each="doclikes : ${doclikes}">
+							<li><a th:text="${doclikes.name}"></a></li>
+						</ol>
+						<div class="ydc-pagination">
+							<ol>
+								<li class="ydc-previous-item" th:if="!${doclikes.hasPrevious()}">
+									<a th:href="'likes?pNum=0'">首页</a>-->
+								</li>
+								<li class="ydc-previous-item" th:if="${doclikes.hasPrevious()}">
+									<a th:href="'likes?pNum=' + ${doclikes.previousPageable().getPageNumber()}" th:text="上一页"></a>
+								</li>
+								<li class="ydc-previous-item" th:if="${doclikes.hasNext()}">
+									<a th:href="'likes?pNum=' + ${doclikes.nextPageable().getPageNumber()}" th:text="下一页"></a>
+								</li>
+								<li class="ydc-previous-item" th:if="!${doclikes.hasNext()}">
+									<a th:href="'likes?pNum=' + ${doclikes.getTotalPages() - 1}">尾页</a>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- right end -->
+		<div class="ydc-flex">
+
+			<!-- left begin -->
+			<div class="ydc-column ydc-column-2">
+				<div class="ydc-menu">
+					<ul>
+						<li class="ydc-menu-item">
+							<a href="/user/login"  class="active"><i class="ydc-icon ydc-icon-home fl"></i>首页</a>
+						</li>
+						<li class="ydc-menu-item">
+							<a href="/user/toUpload"><i class="ydc-icon ydc-icon-find fl"></i>发布</a>
+						</li>
+						<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-file fl"></i>分类
+								</span>
+							<ul>
+								<ul>
+									<li>
+										<a href="">内容管理</a>
+									</li>
+									<li>
+										<a href="">内容同步</a>
+									</li>
+									<li>
+										<a href="">素材中心</a>
+									</li>
+								</ul>
+							</ul>
+						</li>
+						<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-set fl"></i>个人中心
+								</span>
+							<ul>
+								<li>
+									<a th:href="'getCollection?username='+${username}" >我的收藏</a>
+									<a th:href="'getDocs?username='+${username}" >我的文档</a>
+								</li>
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- left end -->
+			<!-- right begin -->
+			<div class="ydc-column ydc-column-8">
+				<div class="ydc-entered-box">
+					<div class="ydc-content-right">
+						<div class="ydc-release-form-group ">
+							<div class="ydc-warning-default">
+								<p>搜索标题以及描述</p>
+							</div>
+							<div class="ydc-group-input clearfix" style="width:100%; margin-bottom:20px;">
+								<form action="/doc/getresults">
+									<input type="text" name="search" placeholder="请输入关键词进行搜索" style="width:91.333%">
+									<button style="cursor: pointer" οnclick="submitBtnClick()" class="ydc-group-button">搜 索</button>
+								</form>
+
+							</div>
+						</div>
+
+
+
+						<!-- gongGao begin -->
+						<div class="ydc-loading-box">
+							<div class="ydc-tabPanel">
+								<!--								主页显示所有文档-->
+								<ol class="ydc-pane-list">
+									<li>
+										<input type="radio" name="s" onclick="setAll()">全选
+										<input type="radio" name="s" onclick="setNo()">全不选
+										<input type="button" class="downloadAll" value="批量下载"  onclick="dls()"/>
+									</li>
+									<li th:each="fitem,stat : ${fmap}" >
+										<input th:id="${stat.count}" class="dlcheck"  type="checkbox" name="dl" th:value="@{'http://'+${fitem.value}}">
+										<a href="" style="margin-left: 5px" target="_blank" th:name="${stat.count}" onclick="openwin(this)" th:text="${fitem.key}">文件名</a>
+										<input type="hidden" th:value="${fitem.key}">
+
+									</li>
+								</ol>
+								<!--															首页显示的分页						-->
+								<div class="ydc-pagination">
+									<ol>
+										<li class="ydc-previous-item">
+											<!--													<button class="ydc-previous-item-btn-medium ydc-disabled" th:if="!${docs.hasPrevious()}">-->
+											<!--														<span> <a th:href="'list?pageNum=1'">首页</a></span>-->
+											<button class="ydc-previous-item-btn-medium ydc-disabled">
+												<span><a href="#">首页</a></span>
+											</button>
+										</li>
+										<!--												<li>-->
+										<!--													<button class="ydc-previous-item-btn-medium cur" th:if="${docs.hasPrevious()}">-->
+										<!--														<span><a th:href="'list?pageNum=' + ${docs.previousPageable().getPageNumber()}" th:text="上一页"></a></span>-->
+										<!--													</button>-->
+										<!--												</li>-->
+										<!--												<li>-->
+										<!--													<button class="ydc-previous-item-btn-medium" th:each="pageNum:${#numbers.sequence(0, docs.getTotalPages() - 1)}">-->
+										<!--														<a th:href="'list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne docs.pageable.getPageNumber()}"></a>-->
+										<!--														<a th:href="'list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq docs.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>-->
+										<!--													</button>-->
+										<!--												</li>-->
+										<!--												<li class="ydc-previous-item"  th:if="${docs.hasNext()}">-->
+										<!--													<button class="ydc-previous-item-btn-medium">-->
+										<!--														<span> <a th:href="'list?pageNum=' + ${docs.nextPageable().getPageNumber()}" th:text="下一页"></a></span>-->
+										<!--													</button>-->
+										<!--												</li>-->
+										<!--												<li class="ydc-previous-item"  th:if="!${docs.hasNext()}">-->
+										<!--													<button class="ydc-previous-item-btn-medium">-->
+										<!--														<span> <a th:href="'list?pageNum=' + ${docs.getTotalPages() - 1}">尾页</a></span>-->
+										<!--													</button>-->
+										<!--												</li>-->
+										<!--												<li class="ydc-item-quick">-->
+										<!--													第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页-->
+										<!--													<button style="margin-left:5px;" class="ydc-previous-item-btn-medium">-->
+										<!--														<span>跳转</span>-->
+										<!--													</button>-->
+										<!--												</li>-->
+									</ol>
+								</div>
+							</div>
+							<div class="ydc-pane">
+
+								<div class="ydc-pagination">
+									<ol>
+										<li class="ydc-previous-item">
+											<button class="ydc-previous-item-btn-medium ydc-disabled">
+												<span>上一页</span>
+											</button>
+										</li>
+										<li>
+											<button class="ydc-previous-item-btn-medium cur">1</button>
+										</li>
+										<li>
+											<button class="ydc-previous-item-btn-medium">2</button>
+										</li>
+										<li>
+											<button class="ydc-previous-item-btn-medium">3</button>
+										</li>
+										<li class="ydc-previous-item">
+											<button class="ydc-previous-item-btn-medium">
+												<span>下一页</span>
+											</button>
+										</li>
+										<li class="ydc-item-quick">
+											第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+											<button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+												<span>跳转</span>
+											</button>
+										</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- gongGao End -->
+			</div>
+		</div>
+	</div>
+	<!-- right end -->
+	</div>
+	</div>
+
+	<div class="ydc-footer">
+
+	</div>
+</section>
+<!-- content YDC end -->
+
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript">
+	var slideIndex = 0;
+	showSlides();
+
+	function showSlides() {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex> slides.length) {slideIndex = 1}
+		slides[slideIndex-1].style.display = "block";
+		setTimeout(showSlides, 3000); // 滚动时间
+	}
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$('.ydc-tabPanel ul li').click(function(){
+			$(this).addClass('hit').siblings().removeClass('hit');
+			$('.ydc-panes>div:eq('+$(this).index()+')').show().siblings().hide();
+		})
+	})
+</script>
+<script type="text/javascript">
+	function dls() {
+		var downloads = document.getElementsByName("dl");
+		for (var i = 0; i < downloads.length; i++) {
+			if(downloads[i].checked){
+				window.open(downloads[i].value);
+			}
+
+		}
+	}
+	function openwin(data) {
+		var url =document.getElementById(data.name);
+		window.open('http://47.107.181.35:8012/onlinePreview?url=' + url.value);
+	}
+
+	function setAll() {
+		var loves = document.getElementsByName("dl");
+		for (var i = 0; i < loves.length; i++) {
+			loves[i].checked = true;
+		}
+	}
+	function setNo() {
+		var loves = document.getElementsByName("dl");
+		for (var i = 0; i < loves.length; i++) {
+			loves[i].checked = false;
+		}
+	}
+</script>
+
+</body>
+</html>

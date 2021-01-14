@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="iTunesArtwork@2x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link type="text/css" rel="stylesheet" th:src="@{/css/core.css}"href="../static/css/core.css">
+    <link type="text/css" rel="stylesheet" th:src="@{/css/icon.css}"href="../static/css/icon.css">
+    <link type="text/css" rel="stylesheet" th:src="@{/css/home.css}"href="../static/css/home.css">
+    <script type="text/javascript" src="../static/js/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript">
+        var currentShowCity=0;
+        $(document).ready(function(){
+            $("#province").change(function(){
+                $("#province option").each(function(i,o){
+                    if($(this).attr("selected"))
+                    {
+                        $(".city").hide();
+                        $(".city").eq(i).show();
+                        currentShowCity=i;
+                    }
+                });
+            });
+
+            $("#province").change();
+        });
+
+        function getSelectValue(){
+            alert("1级="+$("#province").val());
+            $(".city").each(function(i,o){
+                if(i == currentShowCity){
+
+                    alert("2级="+$(".city").eq(i).val());
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<!-- head YDC begin -->
+<header class="ydc-header">
+    <div class="ydc-entered">
+        <div class="ydc-header-content ydc-flex">
+            <div class="ydc-column">
+                <a href="/index/getIndex" class="ydc-column-ydc-logo">
+                    知识库管理系统
+                </a>
+            </div>
+            <div class="ydc-column">
+                <div class="ydc-column-user">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- head YDC end -->
+<!-- content YDC begin -->
+<section>
+    <div class="ydc-content-slide ydc-body">
+        <div class="ydc-flex">
+            <!-- left begin -->
+            <div class="ydc-column ydc-column-2">
+                <div class="ydc-menu">
+                    <ul>
+                        <li class="ydc-menu-item">
+                            <a href="/index/getIndex" class="">
+                                <i class="ydc-icon ydc-icon-home fl"></i>
+                                首页
+                            </a>
+                        </li>
+                        <li class="ydc-menu-item">
+                            <a href="/index/getRelease" class="active">
+                                <i class="ydc-icon ydc-icon-find fl"></i>
+                                发布
+                            </a>
+                        </li>
+                        <li class="ydc-menu-item">
+                                    <span class="ydc-menu-sub-title">
+                                        <i class="ydc-icon ydc-icon-file fl"></i>
+                                        管理
+                                    </span>
+                            <ul>
+                                <ul>
+                                    <li>
+                                        <a href="">内容管理</a>
+                                    </li>
+                                    <li>
+                                        <a href="">内容同步</a>
+                                    </li>
+                                    <li>
+                                        <a href="">素材中心</a>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </li>
+
+                        <li class="ydc-menu-item">
+                                    <span class="ydc-menu-sub-title">
+                                        <i class="ydc-icon ydc-icon-set fl"></i>
+                                        个人中心
+
+                                    </span>
+                            <ul>
+                                <li>
+                                    <a href="#" >我的收藏</a>
+                                    <a href="#" >我的文档</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- right begin -->
+            <div class="ydc-column ydc-column-8">
+                <div class="ydc-release-content">
+                    <div class="ydc-tabPanel ydc-tabPanel-release">
+                        <div class="ydc-release-tab-head">
+                            <ul>
+                                <li class="hit">发布文章</li>
+                            </ul>
+
+                        </div>
+                        <div class="ydc-panes">
+                            <div class="ydc-pane" style="display:block;">
+                                <div class="ydc-release-form-group ">
+                                    <div class="ydc-warning-default">
+                                        <p>标题字数需在11字到30字之间。</p>
+                                    </div>
+                                    <div class="ydc-release-form-group-input">
+                                        <input type="text" class="ydc-form-control" title="" placeholder="请输入标题，为了更好的展示效果，建议标题字数在30个汉字以内" onkeyUp="textLimitCheck(this, 30);">
+                                        <div class="ydc-form-group-jl">
+                                            <span id="messageCount">0</span>
+                                            /30
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ydc-form-city">
+                                    <!--                                            <form action="/user/upload">-->
+                                    <div class="aui-card-form-item">
+                                        <label class="aui-card-form-label">分类:</label>
+                                        <div class="aui-card-form-input">
+                                            <select id="province">
+                                                <option>互联网</option>
+                                                <option>人工智能</option>
+                                                <option>人文</option>
+                                                <option>教育</option>
+                                                <option>汽车</option>
+                                                <option>游戏</option>
+                                                <option>财经</option>
+                                                <option>要闻</option>
+                                                <option>萌宝</option>
+                                                <option>艺术</option>
+                                                <option>育儿</option>
+                                                <option>职场</option>
+                                                <option>美女</option>
+                                                <option>科技</option>
+                                                <option>生活</option>
+                                                <option>社会</option>
+                                                <option>星座</option>
+                                                <option>时尚</option>
+                                                <option>旅游</option>
+                                                <option>数码</option>
+                                                <option>故事</option>
+                                                <option>搞笑</option>
+                                                <option>探索</option>
+                                                <option>手机</option>
+                                                <option>房产</option>
+                                                <option>彩票</option>
+                                                <option>小品</option>
+                                                <option>明星</option>
+                                                <option>家居</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <form name="uploadForm" action="/user/upload" method="post" enctype="multipart/form-data">
+                                        <div class="aui-card-form-item preview  aui-news">
+                                            <!--                                                        <input type="file" name="file">&nbsp;&nbsp;-->
+                                            <!--                                                        <input type="submit" value="上传文件">-->
+                                            <!--&lt;!&ndash;                                                    </form>&ndash;&gt;-->
+                                            <div class="aui-file-up-btn clearfix ">
+                                                <div class="idPicFile aui-btn aui-file-new">
+                                                    <input type="file" name="file" id="1" class="file_photo aui-file-new-up" style="margin:0;">
+                                                    <a>上传</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="ydc-btn">
+                                            <button class="btn" type="submit">发布</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="ydc-pane">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- right end -->
+        </div>
+    </div>
+</section>
+<!-- content YDC end -->
+<script type="text/javascript" src="../static/js/nicEdit.js"></script>
+<script type="text/javascript" src="../static/js/upImg.js"></script>
+<script type="text/javascript">
+
+    jQuery(function(){
+        upload_start();
+    });
+    //tab切换
+    $(function(){
+        $('.aui-ad-tab-title ul li').click(function(){
+            $(this).addClass('aui-current').siblings().removeClass('aui-current');
+            $('.aui-ad-tab-body>div:eq('+$(this).index()+')').show().siblings().hide();
+        })
+    });
+
+</script>
+<script type="text/javascript">
+
+    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });//编辑器
+
+</script>
+<script type="text/javascript">
+
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex> slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 3000); // AD滚动时间
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(function(){
+        $('.ydc-tabPanel ul li').click(function(){
+            $(this).addClass('hit').siblings().removeClass('hit');
+            $('.ydc-panes>div:eq('+$(this).index()+')').show().siblings().hide();
+        })
+    })//tab
+
+</script>
+<script type="text/javascript">
+
+    function textLimitCheck(thisArea, maxLength){
+        if (thisArea.value.length > maxLength){
+            alert(maxLength + ' 个字限制. \r超出的将自动清除.');
+            thisArea.value = thisArea.value.substring(0, 30);
+            thisArea.focus();    }
+        messageCount.innerText = thisArea.value.length;
+        messageCount1.innerText = thisArea.value.length;
+        messageCount2.innerText = thisArea.value.length;
+    }//标题输入框字数限制
+
+</script>
+</body>
+</html>
